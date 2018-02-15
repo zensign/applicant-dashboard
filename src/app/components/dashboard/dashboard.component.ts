@@ -12,22 +12,21 @@ import { ApplicantDashboardService } from '../../services/applicant-dashboard.se
 })
 export class DashboardComponent implements OnInit {
 
-	public model: Observable<any>;
-  public sortProp: string = 'name';
-  public sortOrder: string = 'asc';
+  public model: Observable<any>;
+  public sortProp = 'name';
+  public sortOrder = 'asc';
   public filterText: string = null;
-  public showFavorited: boolean = false;
+  public showFavorited = false;
 
-  constructor(private applicantDashboardService: ApplicantDashboardService) { }
+  constructor (private applicantDashboardService: ApplicantDashboardService) { }
 
-  ngOnInit() {
-  	this.model = this.applicantDashboardService.applicantDashboardUpdates;
+  ngOnInit () {
+    this.model = this.applicantDashboardService.applicantDashboardUpdates;
     this.applicantDashboardService.getApplicantsList().first().subscribe();
   }
 
-  updateSorting(property:string)
-  {
-    if(this.sortProp === property) {
+  updateSorting (property: string) {
+    if (this.sortProp === property) {
       this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
     } else {
       this.sortOrder = 'asc';

@@ -16,29 +16,29 @@ export class DetailsComponent implements OnInit {
   public model: Observable<any>;
   public applicantId: number;
 
-  constructor(private route: ActivatedRoute,
-  	private applicantDashboardService: ApplicantDashboardService) { }
+  constructor (private route: ActivatedRoute,
+    private applicantDashboardService: ApplicantDashboardService) { }
 
-  ngOnInit() {
-  	this.route.params
-  		.subscribe( params => {
-	  		this.applicantId = parseInt(params.id);
-	  		this.model = 
-	  			this.applicantDashboardService.
-	  				applicantDashboardUpdates
-	  					.map(state => {
-	  						if (state.applicantList) {
-	  							return state.applicantList.applicants
-	  								.filter(applicant => applicant.id === this.applicantId)[0];
-	  						} else {
-	  							return state.applicantList;
-	  						}
-	  					});
-	    	this.applicantDashboardService.getApplicantsList().first().subscribe();
-  	});
+  ngOnInit () {
+    this.route.params
+      .subscribe( params => {
+        this.applicantId = parseInt(params.id, 10);
+        this.model =
+          this.applicantDashboardService.
+            applicantDashboardUpdates
+              .map(state => {
+                if (state.applicantList) {
+                  return state.applicantList.applicants
+                    .filter(applicant => applicant.id === this.applicantId)[0];
+                } else {
+                  return state.applicantList;
+                }
+              });
+        this.applicantDashboardService.getApplicantsList().first().subscribe();
+    });
   }
 
-  toggleFavorited(id:string) {
-  	this.applicantDashboardService.toggleFavorite(id);
+  toggleFavorited (id: string) {
+    this.applicantDashboardService.toggleFavorite(id);
   }
 }

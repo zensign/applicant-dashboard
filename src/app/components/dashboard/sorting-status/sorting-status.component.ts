@@ -7,8 +7,8 @@ import { Component, Input } from '@angular/core';
 })
 export class SortingStatusComponent {
 
-	@Input() show: boolean = false;
-	@Input() order: string = 'asc';
+  @Input() show = false;
+  @Input() order = 'asc';
 
   constructor() { }
 

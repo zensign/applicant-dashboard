@@ -1,5 +1,5 @@
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
@@ -12,42 +12,40 @@ import { ApplicantDashboardState, ApplicantList } from '../models/applicant-dash
 @Injectable()
 export class ApplicantDashboardService {
 
-  public GET_APPLICANT_LIST_URL = '/assets/data/applicants.json';
+  public GET_APPLICANT_LIST_URL = 'https://zensign.github.io/applicant-dashboard/assets/data/applicants.json';
 
   private _applicantDashboardSubject: BehaviorSubject<ApplicantDashboardState> = new BehaviorSubject(new ApplicantDashboardState());
 
-  constructor ( private http: Http ) { }
+  constructor ( private httpClient: HttpClient ) { }
 
-  get _applicantDashboardState () {
+  get _applicantDashboardState (): any {
       return this._applicantDashboardSubject.getValue();
   }
 
   set _applicantDashboardState (update: any) {
-    let next = Object.assign(
-      new ApplicantDashboardState(), 
-      this._applicantDashboardState, 
+    const next = Object.assign(
+      new ApplicantDashboardState(),
+      this._applicantDashboardState,
       update
     );
     this._applicantDashboardSubject.next(next);
   }
 
-  get applicantDashboardUpdates () {
+  get applicantDashboardUpdates (): Observable <any> {
     return this._applicantDashboardSubject
-      .asObservable()
+      .asObservable();
   }
 
-  getApplicantsList(force:boolean = false)
-  {
+  getApplicantsList (force: boolean = false): Observable <any> {
     if (!force && this._applicantDashboardState.applicantList) {
       return Observable.of(this._applicantDashboardState);
     }
 
-    const favs:Array<string> = this.getFavoriteIds();
+    const favs: Array <string> = this.getFavoriteIds();
 
     this._applicantDashboardState = { loading: true };
 
-    return this.http.get(this.GET_APPLICANT_LIST_URL)
-      .map(response => response.json())
+    return this.httpClient.get(this.GET_APPLICANT_LIST_URL)
       .map(applicantsList => {
         this._applicantDashboardState = {
           loading: false,
@@ -59,15 +57,15 @@ export class ApplicantDashboardService {
       });
   }
 
-  toggleFavorite(id:string) {
-    const favs:Array<string> = this.getFavoriteIds();
-    const on:boolean = favs.includes(id.toString());
+  toggleFavorite (id: string) {
+    const favs: Array<string> = this.getFavoriteIds();
+    const on: boolean = favs.includes(id.toString());
     const index: number = favs.indexOf(id);
 
-    if(on) {
+    if (on) {
       if (index !== -1) {
           favs.splice(index, 1);
-      }  
+      }
     } else {
       favs.push(id.toString());
     }
@@ -80,17 +78,17 @@ export class ApplicantDashboardService {
               applicant.favorited = !on;
             }
         });
-    
+
     this._applicantDashboardState = {
         applicantList: this._applicantDashboardState.applicantList
     };
 
-    localStorage.setItem('favorites', favs.join(',')); 
+    localStorage.setItem('favorites', favs.join(','));
   }
 
-  getFavoriteIds() {
-    const stored:string = localStorage.getItem('favorites');
-    const favs:Array<string> = stored ? stored.split(',') : [];
+  getFavoriteIds (): Array <string> {
+    const stored: string = localStorage.getItem('favorites');
+    const favs: Array<string> = stored ? stored.split(',') : [];
     return favs;
   }
 }

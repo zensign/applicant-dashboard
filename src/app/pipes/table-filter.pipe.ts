@@ -5,23 +5,24 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class TableFilterPipe implements PipeTransform {
 
-  transform(array: any, args?: any): any {
-  	if (!array) {
-  		return [-1];
-  	}
+  transform (array: any, args?: any): any {
+    if (!array) {
+      return [-1];
+    }
 
-  	if (!args || !args.props || !args.filterText) {
-  		return array;
-  	}
+    if (!args || !args.props || !args.filterText) {
+      return array;
+    }
 
-    let results = array.filter( item => {
-    	let found = false;
+    const results = array.filter( item => {
+      let found = false;
 
-    	args.props.forEach(prop => {
-    		if (item[prop] && item[prop].toLowerCase().includes(args.filterText.toLowerCase())) {
-    			found = true;
-    		}
-    	})
+      args.props.forEach(prop => {
+        if (item[prop] && item[prop].toLowerCase().includes(args.filterText.toLowerCase())) {
+          found = true;
+        }
+      });
+
       return found;
     });
 
