@@ -1,0 +1,54 @@
+thead
+{
+	th
+	{
+		vertical-align: text-top;
+
+		button
+		{
+			display:block;
+			width:100%;
+			border:none;
+			background:none;
+			cursor:pointer;
+
+			&:hover,
+			&:active
+			{
+				color:#f36f21;
+			}
+		}
+	}
+}
+
+tbody
+{
+	tr
+	{
+		&:hover
+		{
+			td
+			{
+				&:not(.empty)
+				{
+					color:#ffb12b;
+					cursor:pointer;
+				}
+			}
+		}
+	}
+}
+
+.favorited
+{
+	button
+	{
+		cursor:pointer;
+		min-width:200px;
+
+		&.active
+		{
+			background-color:#f36f21;
+		}
+	}
+}

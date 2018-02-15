@@ -1,0 +1,28 @@
+a
+{
+	color:#ffb12b;
+}
+
+.availability
+{
+	max-width:200px;
+	font-size:.8em;
+
+	th
+	{
+		border-bottom:solid 1px #000;
+	}
+}
+
+.favorited
+{
+	button
+	{
+		cursor:pointer;
+
+		&.active
+		{
+			background-color:#f36f21;
+		}
+	}
+}

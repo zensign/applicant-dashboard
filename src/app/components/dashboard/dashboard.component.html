@@ -1,3 +1,79 @@
-<p>
-  dashboard works!
-</p>
+<div *ngIf="model | async; let vm">
+
+  <div class="row mt-4">
+    <div class="col-sm-6">
+      <form>
+        <div class="form-group ml-sm-4">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Type keyword to filter" (input)="filterText = $event.target.value" />
+            <span class="input-group-addon" id="basic-addon2">
+              <fa name="search"></fa>
+            </span>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-sm-6 text-sm-right favorited">
+      <button 
+        type="button" 
+        class="btn btn-outline-secondary mr-sm-4"
+        [ngClass]="{'active': showFavorited}"
+        (click)="showFavorited = !showFavorited">
+          <fa name="star"></fa> Favorited
+      </button>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+  	<div class="col">
+  		<table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>
+              <button (click)="updateSorting('name')" tabindex="1">
+                <strong>Name</strong> 
+                <app-sorting-status 
+                  [show]="sortProp === 'name'"
+                  [order]="sortOrder">
+                </app-sorting-status>
+              </button>
+              </th>
+            <th>
+              <button (click)="updateSorting('position')" tabindex="2">
+                <strong>Position</strong> 
+                <app-sorting-status 
+                  [show]="sortProp === 'position'"
+                  [order]="sortOrder">
+                </app-sorting-status>
+              </button>
+            </th>
+            <th>
+              <button (click)="updateSorting('applied')" tabindex="3">
+                <strong>Applied Date</strong> 
+                <app-sorting-status 
+                  [show]="sortProp === 'applied'"
+                  [order]="sortOrder">
+                </app-sorting-status>
+              </button>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr 
+            *ngFor="let applicant of vm.applicantList?.applicants | tableFilter: {'props' : ['name', 'position'], 'filterText' : filterText } | tableFavorited:showFavorited | tableSort: { 'name' : sortProp, 'order' : sortOrder }"
+            tabindex="4"
+            [routerLink]="applicant !== -1 ? ['/details', applicant.id, applicant.name] : []">
+
+            <ng-container *ngIf="applicant !== -1">
+      				<td>{{ applicant.name }}</td>
+      				<td>{{ applicant.position }}</td>
+      				<td>{{ applicant.applied | date:'MM/dd/yyyy'}}</td>
+            </ng-container>
+
+            <td *ngIf="applicant === -1" class="empty" colspan="3">Sorry, no results for your search</td> 
+          </tr>
+        </tbody>
+      </table>
+  	</div>
+  </div>
+</div>
