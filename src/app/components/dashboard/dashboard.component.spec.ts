@@ -1,6 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { DashboardComponent } from './dashboard.component';
+import { ApplicantDashboardService } from '../../services/applicant-dashboard.service';
+
+import { FontAwesomeMock, 
+  AppSortMock,
+  TableSortMock,
+  TableFilterMock,
+  TableFavoritedMock,
+  applicantDashboardServiceMock } from '../../../test-mocks';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -8,7 +17,17 @@ describe('DashboardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DashboardComponent ]
+      declarations: 
+        [ DashboardComponent,
+          FontAwesomeMock,
+          AppSortMock,
+          TableSortMock,
+          TableFilterMock,
+          TableFavoritedMock],
+      imports: 
+        [RouterTestingModule],
+      providers: 
+        [{ provide: ApplicantDashboardService, useValue: applicantDashboardServiceMock }]
     })
     .compileComponents();
   }));

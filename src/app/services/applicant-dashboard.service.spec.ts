@@ -1,11 +1,16 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, async, inject } from '@angular/core/testing';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { ApplicantDashboardService } from './applicant-dashboard.service';
 
 describe('ApplicantDashboardService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ApplicantDashboardService]
+      providers: [ApplicantDashboardService],
+      imports: [
+        HttpClientModule,
+        HttpClientTestingModule]
     });
   });
 

@@ -1,4 +1,4 @@
-import { ApplicantSortPipe } from './table-sort.pipe';
+import { TableSortPipe } from './table-sort.pipe';
 
 describe('TableSortPipe', () => {
   it('create an instance', () => {

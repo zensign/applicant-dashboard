@@ -2,13 +2,20 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SortingStatusComponent } from './sorting-status.component';
 
+import { FontAwesomeMock, 
+  AppSortMock,
+  TableSortMock,
+  TableFilterMock,
+  TableFavoritedMock,
+  applicantDashboardServiceMock } from '../../../../test-mocks';
+
 describe('SortingStatusComponent', () => {
   let component: SortingStatusComponent;
   let fixture: ComponentFixture<SortingStatusComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SortingStatusComponent ]
+      declarations: [ SortingStatusComponent, FontAwesomeMock ]
     })
     .compileComponents();
   }));
