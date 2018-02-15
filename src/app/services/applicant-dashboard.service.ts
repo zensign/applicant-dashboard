@@ -53,6 +53,10 @@ export class ApplicantDashboardService {
         };
       })
       .catch(response => {
+        this._applicantDashboardState = {
+          loading: false,
+          error: true
+        };
         return Observable.of(response);
       });
   }

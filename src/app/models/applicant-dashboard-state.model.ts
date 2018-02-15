@@ -48,5 +48,6 @@ export class ApplicantList {
 export class ApplicantDashboardState {
 
   public loading = false;
+  public error = false;
   public applicantList: ApplicantList;
 }

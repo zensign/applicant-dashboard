@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/first';
 
 import { ApplicantDashboardService } from '../../services/applicant-dashboard.service';
+import { Applicant } from '../../models/applicant-dashboard-state.model';
 
 @Component({
   selector: 'app-details',
@@ -15,6 +16,7 @@ export class DetailsComponent implements OnInit {
 
   public model: Observable<any>;
   public applicantId: number;
+  public currentDetail: Applicant = null;
 
   constructor (private route: ActivatedRoute,
     private applicantDashboardService: ApplicantDashboardService) { }
@@ -28,11 +30,11 @@ export class DetailsComponent implements OnInit {
             applicantDashboardUpdates
               .map(state => {
                 if (state.applicantList) {
-                  return state.applicantList.applicants
+                  this.currentDetail = state.applicantList.applicants
                     .filter(applicant => applicant.id === this.applicantId)[0];
-                } else {
-                  return state.applicantList;
                 }
+
+                return state;
               });
         this.applicantDashboardService.getApplicantsList().first().subscribe();
     });

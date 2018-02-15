@@ -1,70 +1,88 @@
 <div *ngIf="model | async; let vm">
-  <div class="row mt-4">
-  	<div class="col-sm-12">
-  		<a routerLink="/"><fa name="arrow-left"></fa> Back to Dashboard</a>
-  	</div>
+
+	<div class="row mt-5 mb-5" [hidden]="!vm.loading">
+    <div class="col text-center mt-5 mb-5">
+      <fa name="spinner" size="4x" animation="spin"></fa>
+    </div>
   </div>
 
-  <div class="jumbotron mt-4">
-  		<div class="row">
-  			<div class="col">
-		  		<h2 class="mb-4">{{ vm.name }}</h2>
-		  		<p>
-		  			<strong>Position:</strong>
-		  			{{ vm.position }}
-		  		</p>
-		  		<p>
-		  			<strong>Applied:</strong>
-		  			{{ vm.applied | date:'MM/dd/yyyy' }}
-		  		</p>
-		  		<p>
-		  			<strong>Experience:</strong>
-		  			{{ vm.experience }}
-		  		</p>
+  <div class="row mt-5 mb-5" [hidden]="!vm.error">
+    <div class="col text-center mt-5 mb-5">
+      <h3 class="mt-4 text-center">
+        <fa name="exclamation-triangle"></fa>
+        <br />
+        Sorry, something went wrong!
+      </h3>
+    </div>
+  </div>
+
+  <div *ngIf="currentDetail">
+	  <div class="row mt-4">
+	  	<div class="col-sm-12">
+	  		<a routerLink="/"><fa name="arrow-left"></fa> Back to Dashboard</a>
+	  	</div>
+	  </div>
+
+	  <div class="jumbotron mt-4">
+	  		<div class="row">
+	  			<div class="col">
+			  		<h2 class="mb-4">{{ currentDetail.name }}</h2>
+			  		<p>
+			  			<strong>Position:</strong>
+			  			{{ currentDetail.position }}
+			  		</p>
+			  		<p>
+			  			<strong>Applied:</strong>
+			  			{{ currentDetail.applied | date:'MM/dd/yyyy' }}
+			  		</p>
+			  		<p>
+			  			<strong>Experience:</strong>
+			  			{{ currentDetail.experience }}
+			  		</p>
+		  		</div>
 	  		</div>
-  		</div>
 
-  		<div class="row">
-  			<div class="col">
-  				<strong>Availability:</strong>
+	  		<div class="row">
+	  			<div class="col">
+	  				<strong>Availability:</strong>
 
-		  		<table class="table table-sm availability">
-		        <thead>
-		          <tr>
-		            <th *ngFor="let day of vm.availability | keys">{{day.key}}</th>
-		          </tr>
-		        </thead>
-		        <tbody>
-		        	<tr>
-		        		<td *ngFor="let day of vm.availability | keys">{{day.value}}</td>
-		        	</tr>
-		        </tbody>
-		  		</table>
-		  	</div>
-		  </div>
+			  		<table class="table table-sm availability">
+			        <thead>
+			          <tr>
+			            <th *ngFor="let day of currentDetail.availability | keys">{{day.key}}</th>
+			          </tr>
+			        </thead>
+			        <tbody>
+			        	<tr>
+			        		<td *ngFor="let day of currentDetail.availability | keys">{{day.value}}</td>
+			        	</tr>
+			        </tbody>
+			  		</table>
+			  	</div>
+			  </div>
 
-		  <div class="row">
-  			<div class="col">
-  				<p *ngFor="let question of vm.questions">
-  					<strong>{{question.text}}</strong>
-  					<br />
-  					{{question.answer}}
-  				</p>
-  			</div>
-  		</div>
+			  <div class="row">
+	  			<div class="col">
+	  				<p *ngFor="let question of currentDetail.questions">
+	  					<strong>{{question.text}}</strong>
+	  					<br />
+	  					{{question.answer}}
+	  				</p>
+	  			</div>
+	  		</div>
 
-  		<div class="row">
-  			<div class="col favorited">
-  				<button 
-		        type="button" 
-		        class="btn btn-outline-secondary mr-sm-4"
-		        [ngClass]="{'active': vm.favorited}"
-		        (click)="toggleFavorited(vm.id.toString())">
-		          <fa name="star"></fa> {{ vm.favorited ? 'Favorited' : 'Add to Favorites' }}
-		      </button>
-  			</div>
-  		</div>
-  </div>
-
+	  		<div class="row">
+	  			<div class="col favorited">
+	  				<button 
+			        type="button" 
+			        class="btn btn-outline-secondary mr-sm-4"
+			        [ngClass]="{'active': currentDetail.favorited}"
+			        (click)="toggleFavorited(currentDetail.id.toString())">
+			          <fa name="star"></fa> {{ currentDetail.favorited ? 'Favorited' : 'Add to Favorites' }}
+			      </button>
+	  			</div>
+	  		</div>
+	  </div>
+	</div>
 
 </div>
