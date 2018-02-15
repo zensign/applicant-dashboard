@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { DashboardComponent } from './dashboard.component';
 import { ApplicantDashboardService } from '../../services/applicant-dashboard.service';
 
-import { FontAwesomeMock, 
+import { FontAwesomeMock,
   AppSortMock,
   TableSortMock,
   TableFilterMock,
@@ -17,16 +17,16 @@ describe('DashboardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: 
+      declarations:
         [ DashboardComponent,
           FontAwesomeMock,
           AppSortMock,
           TableSortMock,
           TableFilterMock,
           TableFavoritedMock],
-      imports: 
+      imports:
         [RouterTestingModule],
-      providers: 
+      providers:
         [{ provide: ApplicantDashboardService, useValue: applicantDashboardServiceMock }]
     })
     .compileComponents();

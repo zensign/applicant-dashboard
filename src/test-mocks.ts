@@ -1,12 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing'
+import { RouterTestingModule } from '@angular/router/testing';
 import { Component, Input, Pipe, PipeTransform } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
+  // tslint:disable-next-line
   selector: 'fa',
   template: ''
 })
+// tslint:disable-next-line
 export class FontAwesomeMock {
   @Input() name: string;
   @Input() animation: string;
@@ -17,6 +19,7 @@ export class FontAwesomeMock {
   selector: 'app-sorting-status',
   template: ''
 })
+// tslint:disable-next-line
 export class AppSortMock {
   @Input() show: boolean;
   @Input() order: string;
@@ -54,4 +57,4 @@ export class KeysMock implements PipeTransform {
 export const applicantDashboardServiceMock = {
   getApplicantsList: () => Observable.of({}),
   applicantDashboardUpdates: Observable.of({})
-}
+};

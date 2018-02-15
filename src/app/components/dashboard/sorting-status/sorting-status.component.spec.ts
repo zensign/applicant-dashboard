@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SortingStatusComponent } from './sorting-status.component';
 
-import { FontAwesomeMock, 
+import { FontAwesomeMock,
   AppSortMock,
   TableSortMock,
   TableFilterMock,
